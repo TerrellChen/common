@@ -6,8 +6,7 @@ package terrell.common.io;
 
 import org.apache.commons.codec.binary.Hex;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -52,6 +51,27 @@ public class FileUtil {
         }finally {
             if (fileInputStream != null){
                 fileInputStream.close();
+            }
+        }
+    }
+
+    public static Object readObjectFromFile(File file) throws IOException, ClassNotFoundException {
+        try (FileInputStream fileInputStream = new FileInputStream(file)) {
+            try (ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+                return objectInputStream.readObject();
+            }
+        }
+    }
+
+    public static void saveObjectToFile(File file, Object object) throws IOException{
+        if (!file.exists()){
+            file.createNewFile();
+        }
+
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+            try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+                objectOutputStream.writeObject(object);
+                objectOutputStream.flush();
             }
         }
     }
