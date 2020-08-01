@@ -109,7 +109,7 @@ public class ClasspathUtil {
                 logger.info("{} is not {}", clazz, from);
                 return;
             }
-            logger.warn("add clazz {}", className);
+            logger.warn("doSomething clazz {}", className);
             list.add(clazz);
         } else {
             File[] files = file.listFiles();
